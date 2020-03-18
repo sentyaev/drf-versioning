@@ -2,6 +2,8 @@ class SerializerClassMixin:
     version_map = None
 
     def _get_serializer_class(self, version):
+        if version not in self.version_map:
+            raise Exception(f'Version Map does not have Serializer for {version}')
         return self.version_map[version]
 
     def get_serializer_class(self):
