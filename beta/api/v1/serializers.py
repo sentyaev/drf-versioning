@@ -6,7 +6,7 @@ from beta.models import Beta
 class BetaSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
-        validated_data['mandatory_field_for_v2'] = 'default value'
+        validated_data['version2'] = 1
         return super().create(validated_data)
 
     class Meta:
