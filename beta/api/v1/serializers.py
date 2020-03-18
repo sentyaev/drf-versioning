@@ -1,14 +1,14 @@
 from rest_framework import serializers
 
-from bdata.models import BData
+from beta.models import Beta
 
 
-class BDataSerializer(serializers.HyperlinkedModelSerializer):
+class BetaSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         validated_data['age'] = 0
         return super().create(validated_data)
 
     class Meta:
-        model = BData
+        model = Beta
         fields = ('url', 'version1')

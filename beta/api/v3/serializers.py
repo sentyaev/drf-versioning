@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from bdata.models import BData
+from beta.models import Beta
 
 
-class BDataSerializer(serializers.HyperlinkedModelSerializer):
+class BetaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = BData
+        model = Beta
         fields = ('url', 'version1', 'version2', 'version3')

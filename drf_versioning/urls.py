@@ -18,24 +18,31 @@ from django.urls import path
 
 from django.urls import include, path
 
-from adata.api_v1.urls import urlpatterns as adata_urlpatterns_v1
-from adata.api_v2.urls import urlpatterns as adata_urlpatterns_v2
-from adata.api_v3.urls import urlpatterns as adata_urlpatterns_v3
+from alpha.api_v1.urls import router as alpha_router_v1
+from alpha.api_v2.urls import router as alpha_router_v2
+from alpha.api_v3.urls import router as alpha_router_v3
 
 
-from bdata.api.urls import urlpatterns as bdata_urlpatterns
+from beta.api.urls import router as beta_router
+from rest_framework.routers import DefaultRouter
 
+v1_router = DefaultRouter()
+v1_router.registry.extend(alpha_router_v1.registry)
+v1_router.registry.extend(beta_router.registry)
 
-api_v1_urlpatterns = [*adata_urlpatterns_v1, *bdata_urlpatterns]
-api_v2_urlpatterns = [*adata_urlpatterns_v2, *bdata_urlpatterns]
-api_v3_urlpatterns = [*adata_urlpatterns_v3, *bdata_urlpatterns]
+v2_router = DefaultRouter()
+v2_router.registry.extend(alpha_router_v2.registry)
+v2_router.registry.extend(beta_router.registry)
+
+v3_router = DefaultRouter()
+v3_router.registry.extend(alpha_router_v3.registry)
+v3_router.registry.extend(beta_router.registry)
 
 urlpatterns = [
-    path('api/v1/', include((api_v1_urlpatterns, 'api'), namespace='v1')),
-    path('api/v1/', include((api_v2_urlpatterns, 'api'), namespace='v2')),
-    path('api/v3/', include((api_v3_urlpatterns, 'api'), namespace='v3')),
+    path('api/v1/', include((v1_router.urls, 'api'), namespace='v1')),
+    path('api/v2/', include((v2_router.urls, 'api'), namespace='v2')),
+    path('api/v3/', include((v3_router.urls, 'api'), namespace='v3')),
 
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
-

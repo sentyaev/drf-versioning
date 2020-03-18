@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from ..models import AData
+from ..models import Alpha
 
 
-class ADataSerializer(serializers.HyperlinkedModelSerializer):
+class AlphaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = AData
+        model = Alpha
         fields = ('url', 'version1', 'version2', 'version3')
