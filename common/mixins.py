@@ -6,7 +6,7 @@ class SerializerClassMixin:
 
     def get_serializer_class(self):
         if not self.version_map:
-            raise Exception('Version Map not provided')
+            raise Exception(f'Version Map not provided for {self.__class__.__name__}')
 
         version = self.request.version
         return self._get_serializer_class(version)
